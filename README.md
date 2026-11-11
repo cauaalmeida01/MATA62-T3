@@ -84,6 +84,7 @@ docs/               contratos, desvios pendentes e o documento do T2
 - [Desvios pendentes de ADR](docs/desvios-pendentes.md)
 - Requisitos implementados: `docs/requisitos-implementados.md` (a fazer)
 - [Princípios SOLID, onde e por quê](docs/solid.md)
+- [Divergências entre o protótipo de telas e o front](docs/design-divergencias.md)
 
 ## Estado atual
 
