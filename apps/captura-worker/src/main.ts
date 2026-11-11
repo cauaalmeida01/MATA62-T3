@@ -11,10 +11,9 @@ async function bootstrap() {
   const app = await NestFactory.createApplicationContext(WorkerModule);
   app.enableShutdownHooks();
   const logger = new Logger('captura-worker');
-  logger.log('worker iniciado (consumo da fila ainda não implementado)');
-
-  // Mantém o processo vivo até o consumo da fila (papel B) substituir isto.
-  setInterval(() => logger.debug('aguardando implementação do consumo da fila'), 60_000);
+  logger.log(
+    `worker iniciado (motor=${process.env.MOTOR_CAPTURA ?? 'playwright'}, fila captura + captura-dlq + job de reconciliação ativos)`,
+  );
 }
 
 void bootstrap();
