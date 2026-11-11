@@ -43,6 +43,14 @@ npm run start:dev -- contas-api                                   # o serviço e
 npm test
 ```
 
+Front em React (`web/`), com recarga instantânea:
+
+```bash
+cd web && npm install
+npm run dev        # http://localhost:5173, falando com o back pelo Nginx (docker compose up)
+npm run dev:mock   # sem back nenhum: API falsa em memória, para trabalhar nas telas
+```
+
 Fora do Docker, troque nos endereços do `.env` os nomes `postgres`, `elasticmq`, `rustfs`, `mailpit` e `*-api` por `localhost` (com as portas da tabela acima).
 
 ## Estrutura
@@ -55,6 +63,7 @@ apps/
   captura-worker/   Serviço Registro e Captura (10 Captura), consome a fila
   evidencia-api/    Serviço Evidência (11 a 14, interno)
   relatorios-api/   Serviço Registros e Relatórios (15 Conclusão, 18 Consulta)
+web/                Front em React + Vite + Tailwind (servido pelo Nginx)
 libs/
   compartilhado/    autorização, auditoria, erros de domínio, health
   infra/            adaptadores: ElasticMQ/SQS, RustFS/S3, SMTP, RFC 3161, PostgreSQL
@@ -74,7 +83,7 @@ docs/               contratos, desvios pendentes e o documento do T2
 - [Contratos entre os serviços](docs/contratos.md)
 - [Desvios pendentes de ADR](docs/desvios-pendentes.md)
 - Requisitos implementados: `docs/requisitos-implementados.md` (a fazer)
-- Princípios SOLID, onde e por quê: `docs/solid.md` (a fazer)
+- [Princípios SOLID, onde e por quê](docs/solid.md)
 
 ## Estado atual
 

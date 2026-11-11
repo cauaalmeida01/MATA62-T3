@@ -18,14 +18,14 @@ Todas, menos cadastro e login, exigem `Authorization: Bearer <token>` e só devo
 
 | Método e rota | Serviço | REQ | O que faz |
 |---|---|---|---|
-| `POST /api/contas` | contas-api | REQ01 | Cadastra advogado (OAB obrigatória) ou usuário comum |
+| `POST /api/contas` | contas-api | REQ01 | `{ nome, email, senha, cpf, tipo: "ADVOGADO" \| "COMUM", oab?, telefone? }`; OAB obrigatória para advogado. Formato usado pelo front: conferir com o papel A |
 | `POST /api/sessoes` | contas-api | REQ03 | Login: devolve `{ token, expiraEm }` |
 | `DELETE /api/sessoes/atual` | contas-api | REQ04 | Logout: revoga o token atual |
 | `GET /api/creditos/saldo` | creditos-api | — | `{ disponivel, reservado }` |
 | `POST /api/solicitacoes` | registro-api | REQ08 | `{ url, titulo, modo: "TELA" }` → `202 { solicitacaoId, status: "PENDENTE" }` |
 | `GET /api/solicitacoes/:id` | registro-api | REQ08 | Status: `PENDENTE`, `PROCESSANDO`, `CONCLUIDA` ou `FALHOU` |
-| `GET /api/registros` | relatorios-api | REQ12 | Lista os registros concluídos do usuário |
-| `GET /api/registros/:id` | relatorios-api | REQ13 | Detalhes: URL, início, fim, arquivos, hashes, carimbo |
+| `GET /api/registros` | relatorios-api | REQ12 | Lista os registros concluídos do usuário, mais novos primeiro: `[{ id, url, titulo, inicio, fim, carimbo: { fonte, horario }, criadoEm }]` |
+| `GET /api/registros/:id` | relatorios-api | REQ13 | Os campos da lista + `solicitacaoId`, `evidenciaId`, `manifestoSha256`, `arquivos: [{ nome, tipo, sha256, tamanhoBytes }]`. Registro de outro usuário responde `404` |
 
 ## 3. Rotas internas (só entre serviços)
 
@@ -126,8 +126,9 @@ A validação fica na biblioteca `compartilhado` (pacote "autorização" da Figu
 | `registro` (registro-api e captura-worker) | `solicitacoes` | `id`, `user_id`, `url`, `titulo`, `modo`, `status`, `reserva_id`, `ultimo_erro`, `criada_em`, `atualizada_em` |
 | `evidencia` (evidencia-api) | `evidencias` | `id`, `solicitacao_id`, `manifesto_sha256`, `carimbo_fonte`, `carimbo_horario`, `carimbo_token`, `criada_em` |
 | `evidencia` | `arquivos` | `id`, `evidencia_id`, `nome`, `tipo`, `sha256`, `tamanho_bytes`, `chave` |
-| `relatorios` (relatorios-api) | `registros` | `id`, `solicitacao_id` (único), `user_id`, `url`, `titulo`, `inicio`, `fim`, `evidencia_id`, `manifesto_sha256`, `carimbo_fonte`, `carimbo_horario`, `criado_em` |
+| `relatorios` (relatorios-api) | `registros` | `id`, `solicitacao_id` (único), `user_id`, `reserva_id`, `url`, `titulo`, `inicio`, `fim`, `evidencia_id`, `manifesto_sha256`, `carimbo_fonte`, `carimbo_horario`, `criado_em`; somente inclusão |
+| `relatorios` | `registro_arquivos` | `id`, `registro_id`, `nome`, `tipo`, `sha256`, `tamanho_bytes`, `chave`; cópia dos arquivos do pacote selado, para o REQ13 não depender da evidencia-api |
 | `compartilhado` (biblioteca) | `tokens_revogados` | `jti` (PK), `expira_em` |
 | `compartilhado` (biblioteca) | `trilha_auditoria` | `id`, `user_id`, `acao`, `entidade_id`, `dados` (JSON), `hash_anterior`, `hash` (único), `criado_em`; somente inclusão |
 
-A ferramenta de banco (ORM e migrações) ainda precisa ser decidida pelo grupo junto com este arquivo.
+**ORM e migrações: Prisma 6.** Cada serviço tem `apps/<serviço>/prisma/schema.prisma`, com o cliente gerado em `node_modules/.prisma/<serviço>` e uma URL própria (`DATABASE_URL_<SERVIÇO>`, terminada em `?schema=<esquema>`), para que a tabela `_prisma_migrations` de cada um fique no próprio esquema. As migrações rodam ao subir o contêiner (`infra/docker/iniciar.sh`). Exemplo pronto: relatorios-api.

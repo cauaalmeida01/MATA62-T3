@@ -9,14 +9,19 @@
     "build:app": "nest build",
     "start:dev": "nest start --watch",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "prisma:generate": "for s in apps/*/prisma/schema.prisma; do [ -f \"$s\" ] || continue; prisma generate --schema \"$s\" || exit 1; done",
+    "postinstall": "npm run --silent prisma:generate",
+    "prisma:migrate:relatorios": "prisma migrate deploy --schema apps/relatorios-api/prisma/schema.prisma"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.0",
     "@nestjs/core": "^11.0.0",
     "@nestjs/platform-express": "^11.0.0",
+    "@prisma/client": "^6.19.3",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
+    "prisma": "^6.19.3",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1"
   },
