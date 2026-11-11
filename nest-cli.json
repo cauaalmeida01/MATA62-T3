@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json.schemastore.org/nest-cli",
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "apps/contas-api/src",
+  "monorepo": true,
+  "root": "apps/contas-api",
+  "compilerOptions": {
+    "webpack": true,
+    "tsConfigPath": "apps/contas-api/tsconfig.app.json"
+  },
+  "projects": {
+    "contas-api": {
+      "type": "application",
+      "root": "apps/contas-api",
+      "entryFile": "main",
+      "sourceRoot": "apps/contas-api/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/contas-api/tsconfig.app.json"
+      }
+    },
+    "creditos-api": {
+      "type": "application",
+      "root": "apps/creditos-api",
+      "entryFile": "main",
+      "sourceRoot": "apps/creditos-api/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/creditos-api/tsconfig.app.json"
+      }
+    },
+    "registro-api": {
+      "type": "application",
+      "root": "apps/registro-api",
+      "entryFile": "main",
+      "sourceRoot": "apps/registro-api/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/registro-api/tsconfig.app.json"
+      }
+    },
+    "captura-worker": {
+      "type": "application",
+      "root": "apps/captura-worker",
+      "entryFile": "main",
+      "sourceRoot": "apps/captura-worker/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/captura-worker/tsconfig.app.json"
+      }
+    },
+    "evidencia-api": {
+      "type": "application",
+      "root": "apps/evidencia-api",
+      "entryFile": "main",
+      "sourceRoot": "apps/evidencia-api/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/evidencia-api/tsconfig.app.json"
+      }
+    },
+    "relatorios-api": {
+      "type": "application",
+      "root": "apps/relatorios-api",
+      "entryFile": "main",
+      "sourceRoot": "apps/relatorios-api/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/relatorios-api/tsconfig.app.json"
+      }
+    },
+    "compartilhado": {
+      "type": "library",
+      "root": "libs/compartilhado",
+      "entryFile": "index",
+      "sourceRoot": "libs/compartilhado/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/compartilhado/tsconfig.lib.json"
+      }
+    },
+    "infra": {
+      "type": "library",
+      "root": "libs/infra",
+      "entryFile": "index",
+      "sourceRoot": "libs/infra/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/infra/tsconfig.lib.json"
+      }
+    }
+  }
+}
