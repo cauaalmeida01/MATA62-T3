@@ -1,0 +1,50 @@
+# Roda em todo pull request para a main (e em cada merge na main).
+# O resultado aparece na aba "Checks" do PR.
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  testes:
+    name: Testes e build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      # Os testes usam um motor de captura falso; o Chromium só entra na imagem Docker do worker.
+      PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Instalar dependências (exatamente as do package-lock.json)
+        run: npm ci
+
+      - name: Testes unitários
+        run: npm test -- --ci
+
+      - name: Build dos 6 serviços
+        run: npm run build
+
+  compose:
+    name: Docker Compose válido
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validar docker-compose.yml
+        run: |
+          cp .env.example .env
+          docker compose config --quiet
