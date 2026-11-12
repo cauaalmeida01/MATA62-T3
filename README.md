@@ -9,10 +9,10 @@ Implementação de parte dos requisitos do **Veridit**, plataforma de registro d
 
 | Papel | Integrante |
 |---|---|
-| A — Contas + Créditos | João Ferraz |
+| A — Contas + Créditos | Davi Araújo |
 | B — Registro e Captura | Guilherme Loiola |
 | C — Evidência | Pedro |
-| D — Registros e Relatórios + Web | Davi Araújo |
+| D — Registros e Relatórios + Web | João Ferraz |
 | E — Infraestrutura, integração, documentação e arquitetura | Cauã Marinho |
 
 ## Como rodar
