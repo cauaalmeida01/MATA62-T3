@@ -20,6 +20,7 @@ import {
 } from './dominio';
 import {
   DnsValidadorUrlSeguraWorker,
+  HttpSimplesMotorCaptura,
   SqsCapturaConsumer,
   SqsDlqConsumer,
 } from './infra';
@@ -340,5 +341,43 @@ describe('captura-worker — Casos de Uso, Consumidores SQS/DLQ e Job de Reconci
     await expect(validador.validar('https://rebinding.atacante.com/post')).rejects.toThrow(
       UrlInvalidaOuBloqueadaWorkerError,
     );
+  });
+
+  it('HttpSimplesMotorCaptura faz fetch da URL e retorna pagina.html (tipo HTML, text/html) + rede.har', async () => {
+    const htmlSimulado = '<!doctype html><html><body><h1>Conteúdo Real</h1></body></html>';
+    const fetchSpy = jest.spyOn(global, 'fetch').mockResolvedValueOnce(
+      new Response(htmlSimulado, {
+        status: 200,
+        statusText: 'OK',
+        headers: { 'content-type': 'text/html; charset=utf-8' },
+      }),
+    );
+
+    const motorHttp = new HttpSimplesMotorCaptura(validadorUrl);
+    const resultado = await motorHttp.capturar({
+      url: 'https://exemplo.com/publicacao',
+      modo: 'TELA',
+      solicitacaoId,
+    });
+
+    expect(fetchSpy).toHaveBeenCalledWith(
+      'https://exemplo.com/publicacao',
+      expect.objectContaining({ method: 'GET' }),
+    );
+    expect(resultado.arquivos).toEqual([
+      {
+        nome: 'pagina.html',
+        tipo: 'HTML',
+        mimeType: 'text/html',
+        conteudo: Buffer.from(htmlSimulado, 'utf8'),
+      },
+      expect.objectContaining({
+        nome: 'rede.har',
+        tipo: 'HAR',
+        mimeType: 'application/json',
+      }),
+    ]);
+
+    fetchSpy.mockRestore();
   });
 });

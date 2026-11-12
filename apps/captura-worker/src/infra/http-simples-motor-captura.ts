@@ -8,16 +8,14 @@ import {
   VALIDADOR_URL_SEGURA_WORKER,
 } from '../dominio';
 
-// PNG 1x1 transparente válido (68 bytes) para representação visual determinística no modo HTTP simples
-const PNG_MINIMO_BASE64 =
-  'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==';
-
 const VIEWPORT_HTTP = { width: 1366, height: 768 };
 const USER_AGENT_HTTP = 'VeriditHttpMotorCaptura/1.0';
 
 /**
  * Implementação alternativa de `IMotorCaptura` via HTTP/fetch (OCP e LSP).
- * Permite trocar o motor de captura via `MOTOR_CAPTURA=http` sem alterar casos de uso.
+ * Realiza o fetch real da URL e devolve o corpo da resposta como `pagina.html`
+ * (`tipo: 'HTML'`, `mimeType: 'text/html'`) acompanhado do registo `rede.har`,
+ * sem gerar imagens falsas.
  */
 @Injectable()
 export class HttpSimplesMotorCaptura implements IMotorCaptura {
@@ -58,6 +56,7 @@ export class HttpSimplesMotorCaptura implements IMotorCaptura {
 
     const fim = new Date();
     const duracaoMs = Math.max(1, fim.getTime() - inicio.getTime());
+    const bufferHtml = Buffer.from(corpoTexto, 'utf8');
 
     const harJson = {
       log: {
@@ -87,13 +86,13 @@ export class HttpSimplesMotorCaptura implements IMotorCaptura {
               })),
               cookies: [],
               content: {
-                size: Buffer.byteLength(corpoTexto, 'utf8'),
+                size: bufferHtml.byteLength,
                 mimeType: resposta.headers.get('content-type') ?? 'text/html',
                 text: corpoTexto,
               },
               redirectURL: '',
               headersSize: -1,
-              bodySize: Buffer.byteLength(corpoTexto, 'utf8'),
+              bodySize: bufferHtml.byteLength,
             },
             cache: {},
             timings: { send: 0, wait: duracaoMs, receive: 0 },
@@ -111,10 +110,10 @@ export class HttpSimplesMotorCaptura implements IMotorCaptura {
       viewport: VIEWPORT_HTTP,
       arquivos: [
         {
-          nome: 'screenshot.png',
-          tipo: 'TELA',
-          mimeType: 'image/png',
-          conteudo: Buffer.from(PNG_MINIMO_BASE64, 'base64'),
+          nome: 'pagina.html',
+          tipo: 'HTML',
+          mimeType: 'text/html',
+          conteudo: bufferHtml,
         },
         {
           nome: 'rede.har',

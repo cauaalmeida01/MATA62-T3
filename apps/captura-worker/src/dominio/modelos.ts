@@ -31,7 +31,7 @@ export interface SolicitacaoWorker {
 
 export interface ArquivoCapturado {
   nome: string;
-  tipo: 'TELA' | 'HAR';
+  tipo: 'TELA' | 'HAR' | 'HTML';
   mimeType: string;
   conteudo: Buffer;
 }
