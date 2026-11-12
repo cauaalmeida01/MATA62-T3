@@ -19,5 +19,6 @@ ARG APP
 ENV NODE_ENV=production
 COPY package*.json ./
 RUN npm install --omit=dev
+RUN if [ "$APP" = "captura-worker" ]; then npx playwright install --with-deps chromium; fi
 COPY --from=build /app/dist/apps/${APP} ./dist
 CMD ["node", "dist/main.js"]
