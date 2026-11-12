@@ -18,9 +18,9 @@ Todas, menos cadastro e login, exigem `Authorization: Bearer <token>` e só devo
 
 | Método e rota | Serviço | REQ | O que faz |
 |---|---|---|---|
-| `POST /api/contas` | contas-api | REQ01 | Cadastra advogado (OAB obrigatória) ou usuário comum |
-| `POST /api/sessoes` | contas-api | REQ03 | Login: devolve `{ token, expiraEm }` |
-| `DELETE /api/sessoes/atual` | contas-api | REQ04 | Logout: revoga o token atual |
+| `POST /api/contas` | contas-api | REQ01 | `{ nome, email, senha (mín. 8), tipo: "ADVOGADO" \| "COMUM", cpf, oab?, telefone? }` → `201 { id, nome, email, tipo }`; OAB obrigatória para advogado; e-mail ou CPF repetido → `409` |
+| `POST /api/sessoes` | contas-api | REQ03 | `{ email, senha }` → `201 { token, expiraEm }`; credenciais erradas → `403 ACESSO_NEGADO` |
+| `DELETE /api/sessoes/atual` | contas-api | REQ04 | Logout: revoga o token atual → `204` |
 | `GET /api/creditos/saldo` | creditos-api | — | `{ disponivel, reservado }` |
 | `POST /api/solicitacoes` | registro-api | REQ08 | `{ url, titulo, modo: "TELA" }` → `202 { solicitacaoId, status: "PENDENTE" }` |
 | `GET /api/solicitacoes/:id` | registro-api | REQ08 | Status: `PENDENTE`, `PROCESSANDO`, `CONCLUIDA` ou `FALHOU` |
@@ -31,10 +31,10 @@ Todas, menos cadastro e login, exigem `Authorization: Bearer <token>` e só devo
 
 | Método e rota | Serviço | Quem chama | Corpo e resposta |
 |---|---|---|---|
-| `POST /api/internal/carteiras` | creditos-api | contas-api, no cadastro | `{ userId }` → cria a carteira com `CREDITOS_INICIAIS` |
-| `POST /api/internal/reservas` | creditos-api | registro-api | `{ userId, solicitacaoId, quantidade: 1 }` → `201 { reservaId }`; sem saldo → `402 CREDITOS_INSUFICIENTES` |
-| `POST /api/internal/reservas/:id/efetivar` | creditos-api | relatorios-api | `200`; se já efetivada → `200` (idempotente); se liberada → `409` |
-| `POST /api/internal/reservas/:id/liberar` | creditos-api | captura-worker (DLQ) e reconciliação | `200`; se já liberada → `200`; se efetivada → `409` |
+| `POST /api/internal/carteiras` | creditos-api | contas-api, no cadastro e no login | `{ userId }` → `201 { userId, disponivel, reservado }` com `CREDITOS_INICIAIS`; se já existe → `200` sem dar créditos de novo |
+| `POST /api/internal/reservas` | creditos-api | registro-api | `{ userId, solicitacaoId, quantidade: 1 }` → `201 { reservaId }`; sem saldo → `402 CREDITOS_INSUFICIENTES`; sem carteira → `404`; mesma `solicitacaoId` de novo → `201` com a mesma `reservaId` |
+| `POST /api/internal/reservas/:id/efetivar` | creditos-api | relatorios-api | `200 { reservaId, status: "EFETIVADA" }`; se já efetivada → `200` (idempotente); se liberada → `409`; inexistente → `404` |
+| `POST /api/internal/reservas/:id/liberar` | creditos-api | captura-worker (DLQ) e reconciliação | corpo opcional `{ motivo }` → `200 { reservaId, status: "LIBERADA" }`; se já liberada → `200`; se efetivada → `409`; inexistente → `404` |
 | `POST /api/internal/evidencias` | evidencia-api | captura-worker | `multipart/form-data`: `metadados` (JSON abaixo) + `arquivos[]` → `201` com o pacote selado |
 | `POST /api/internal/registros/:solicitacaoId/conclusao` | relatorios-api | captura-worker | `{ userId, reservaId, url, titulo, inicio, fim, pacote }` → `201 { registroId }`; repetida → `200` com o mesmo `registroId` |
 
