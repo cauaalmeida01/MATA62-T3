@@ -20,6 +20,21 @@ jobs:
     env:
       # Os testes usam um motor de captura falso; o Chromium só entra na imagem Docker do worker.
       PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
+      # Banco real para os testes de concorrência da creditos-api (SELECT ... FOR UPDATE).
+      TEST_DATABASE_URL: postgresql://veridit:veridit@localhost:5432/veridit
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: veridit
+          POSTGRES_PASSWORD: veridit
+          POSTGRES_DB: veridit
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U veridit"
+          --health-interval 3s
+          --health-retries 20
     steps:
       - uses: actions/checkout@v4
 
