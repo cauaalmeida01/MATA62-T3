@@ -15,7 +15,7 @@ export function criarApiFalsa(): VeriditApi {
 
   function dono(token: string) {
     const email = tokens.get(token);
-    if (!email) throw new ErroApi(401, 'HTTP_401', 'Sessão expirada. Entre de novo.');
+    if (!email) throw new ErroApi(403, 'ACESSO_NEGADO', 'Sessão encerrada; faça login de novo');
     return email;
   }
 
@@ -55,7 +55,7 @@ export function criarApiFalsa(): VeriditApi {
     },
     async entrar(email, senha) {
       await espera();
-      if (usuarios.get(email)?.senha !== senha) throw new ErroApi(401, 'HTTP_401', 'E-mail ou senha incorretos');
+      if (usuarios.get(email)?.senha !== senha) throw new ErroApi(403, 'ACESSO_NEGADO', 'E-mail ou senha incorretos');
       const token = crypto.randomUUID();
       tokens.set(token, email);
       return { token, expiraEm: new Date(Date.now() + 3_600_000).toISOString() };

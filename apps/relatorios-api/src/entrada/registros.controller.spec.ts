@@ -1,24 +1,30 @@
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
-import { createHmac, randomUUID } from 'node:crypto';
-import { FiltroErrosDominio } from '@app/compartilhado';
+import { randomUUID } from 'node:crypto';
+import { assinarJwt, FiltroErrosDominio, ITokensRevogados, JwtAuthGuard, TOKENS_REVOGADOS } from '@app/compartilhado';
 import { ConcluirRegistro } from '../aplicacao/concluir-registro';
 import { DetalharRegistro, ListarRegistros } from '../aplicacao/consultar-registros';
 import { CreditosClientFalso, RegistroRepositorioEmMemoria } from '../aplicacao/testes/dubles';
 import { ReservaJaLiberada } from '../dominio/erros';
 import { CREDITOS_CLIENT, REGISTRO_REPOSITORIO } from '../dominio/portas';
-import { AutenticacaoGuard, JWT_SECRET } from './autenticacao.guard';
 import { ConclusaoController, RegistrosController } from './registros.controller';
 
 const SEGREDO = 'segredo-de-teste';
 const HASH = 'b'.repeat(64);
 
-function token(sub: string, expiraEmSegundos = 3600, segredo = SEGREDO) {
-  const b64 = (o: object) => Buffer.from(JSON.stringify(o)).toString('base64url');
-  const cabecalho = b64({ alg: 'HS256', typ: 'JWT' });
-  const corpo = b64({ sub, jti: randomUUID(), tipo: 'COMUM', exp: Math.floor(Date.now() / 1000) + expiraEmSegundos });
-  const assinatura = createHmac('sha256', segredo).update(`${cabecalho}.${corpo}`).digest('base64url');
-  return `${cabecalho}.${corpo}.${assinatura}`;
+const revogados = new Set<string>();
+const tokensRevogados: ITokensRevogados = {
+  async revogar(jti) {
+    revogados.add(jti);
+  },
+  async estaRevogado(jti) {
+    return revogados.has(jti);
+  },
+};
+
+function token(sub: string, expiraEmSegundos = 3600, segredo = SEGREDO, jti: string = randomUUID()) {
+  const agora = Math.floor(Date.now() / 1000);
+  return assinarJwt({ sub, jti, tipo: 'COMUM', iat: agora, exp: agora + expiraEmSegundos }, segredo);
 }
 
 function conclusao(userId: string) {
@@ -46,6 +52,10 @@ describe('Rotas da relatorios-api', () => {
   const ana = randomUUID();
   const bia = randomUUID();
 
+  beforeAll(() => {
+    process.env.JWT_SECRET = SEGREDO;
+  });
+
   beforeEach(async () => {
     creditos = new CreditosClientFalso();
     const modulo = await Test.createTestingModule({
@@ -54,10 +64,10 @@ describe('Rotas da relatorios-api', () => {
         ConcluirRegistro,
         ListarRegistros,
         DetalharRegistro,
-        AutenticacaoGuard,
+        JwtAuthGuard,
         { provide: REGISTRO_REPOSITORIO, useValue: new RegistroRepositorioEmMemoria() },
         { provide: CREDITOS_CLIENT, useValue: creditos },
-        { provide: JWT_SECRET, useValue: SEGREDO },
+        { provide: TOKENS_REVOGADOS, useValue: tokensRevogados },
       ],
     }).compile();
 
@@ -127,7 +137,19 @@ describe('Rotas da relatorios-api', () => {
     ['sem token', undefined],
     ['token expirado', token(randomUUID(), -10)],
     ['assinatura errada', token(randomUUID(), 3600, 'outro-segredo')],
-  ])('rotas públicas recusam %s com 401', async (_, autorizacao) => {
-    expect((await get('/registros', autorizacao)).status).toBe(401);
+  ])('rotas públicas recusam %s com 403 ACESSO_NEGADO', async (_, autorizacao) => {
+    const resposta = await get('/registros', autorizacao);
+    expect(resposta.status).toBe(403);
+    expect((await resposta.json()).erro.codigo).toBe('ACESSO_NEGADO');
+  });
+
+  it('token revogado no logout (REQ04) não acessa os registros', async () => {
+    const jti = randomUUID();
+    const autorizacao = token(ana, 3600, SEGREDO, jti);
+    expect((await get('/registros', autorizacao)).status).toBe(200);
+
+    await tokensRevogados.revogar(jti, new Date(Date.now() + 3_600_000));
+
+    expect((await get('/registros', autorizacao)).status).toBe(403);
   });
 });

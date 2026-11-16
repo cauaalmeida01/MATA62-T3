@@ -84,7 +84,10 @@ export function Etiqueta({ tom, children }: { tom: Tom; children: ReactNode }) {
   );
 }
 
-/** Carrega dados do back; se o token expirou (401), encerra a sessão e volta ao login. */
+/**
+ * Carrega dados do back. Token inválido, expirado ou revogado no logout chega como
+ * 403 ACESSO_NEGADO (JwtAuthGuard compartilhado): encerra a sessão e volta ao login.
+ */
 export function useCarregar<T>(buscar: (token: string) => Promise<T>, deps: unknown[]) {
   const { token, sair } = useSessao();
   const [dados, setDados] = useState<T | null>(null);
@@ -98,7 +101,7 @@ export function useCarregar<T>(buscar: (token: string) => Promise<T>, deps: unkn
       .then((d) => ativo && setDados(d))
       .catch((e) => {
         if (!ativo) return;
-        if (e instanceof ErroApi && e.status === 401) void sair();
+        if (e instanceof ErroApi && (e.status === 401 || e.codigo === 'ACESSO_NEGADO')) void sair();
         else setErro(e);
       });
     return () => {

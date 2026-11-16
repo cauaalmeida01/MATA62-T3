@@ -26,6 +26,7 @@ ARG APP
 ENV NODE_ENV=production
 COPY package*.json ./
 RUN npm install --omit=dev
+RUN if [ "$APP" = "captura-worker" ]; then npx playwright install --with-deps chromium; fi
 COPY --from=build /app/node_modules/.prisma ./node_modules/.prisma
 COPY --from=build /app/servico-prisma ./prisma
 COPY --from=build /app/dist/apps/${APP} ./dist

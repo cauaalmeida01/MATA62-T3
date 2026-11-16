@@ -39,7 +39,7 @@ O front segue o protótipo de telas do Veridit (cores, tipografia, componentes e
 
 - Sem a opção "Empresa · em breve": não existe no requisito nem no contrato.
 - O aceite dos Termos e da LGPD é validado só na tela. O contrato do cadastro não tem esse campo.
-- Senha com mínimo de 10 caracteres, como no protótipo. **A contas-api (papel A) precisa validar o mesmo mínimo.**
+- Senha com mínimo de **8** caracteres, e não 10 como no protótipo: é o que a contas-api valida (`docs/contratos.md`).
 
 ### Meus registros (REQ12)
 

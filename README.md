@@ -9,10 +9,10 @@ Implementação de parte dos requisitos do **Veridit**, plataforma de registro d
 
 | Papel | Integrante |
 |---|---|
-| A — Contas + Créditos | João Ferraz |
+| A — Contas + Créditos | Davi Araújo |
 | B — Registro e Captura | Guilherme Loiola |
 | C — Evidência | Pedro |
-| D — Registros e Relatórios + Web | Davi Araújo |
+| D — Registros e Relatórios + Web | João Ferraz |
 | E — Infraestrutura, integração, documentação e arquitetura | Cauã Marinho |
 
 ## Como rodar
@@ -83,7 +83,7 @@ docs/               contratos, desvios pendentes e o documento do T2
 - [Contratos entre os serviços](docs/contratos.md)
 - [Desvios pendentes de ADR](docs/desvios-pendentes.md)
 - Requisitos implementados: `docs/requisitos-implementados.md` (a fazer)
-- [Princípios SOLID, onde e por quê](docs/solid.md)
+- [Princípios SOLID, onde e por quê](docs/SOLID.md)
 - [Divergências entre o protótipo de telas e o front](docs/design-divergencias.md)
 
 ## Estado atual

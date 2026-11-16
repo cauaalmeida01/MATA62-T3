@@ -80,7 +80,7 @@ export function Cadastro() {
           {tipo === 'ADVOGADO' && <Campo rotulo="Número da OAB" name="oab" placeholder="BA 12.345" required ajuda="Exibido apenas para advogados" />}
         </div>
         <div className="grid gap-5 sm:grid-cols-2">
-          <Campo rotulo="Senha" name="senha" type="password" autoComplete="new-password" minLength={10} required icone={<IconeCadeado />} ajuda="Mínimo de 10 caracteres" />
+          <Campo rotulo="Senha" name="senha" type="password" autoComplete="new-password" minLength={8} required icone={<IconeCadeado />} ajuda="Mínimo de 8 caracteres" />
           <Campo rotulo="Confirmar senha" name="confirmacao" type="password" autoComplete="new-password" required icone={<IconeCadeado />} />
         </div>
         <label className="flex items-start gap-2.5 text-sm">
