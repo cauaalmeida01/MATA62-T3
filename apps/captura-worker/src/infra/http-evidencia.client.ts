@@ -32,7 +32,11 @@ export class HttpEvidenciaClient implements IEvidenciaClient {
     try {
       resposta = await fetch(`${this.baseUrl}/internal/evidencias`, {
         method: 'POST',
+        headers: {
+          'x-internal-api-key': process.env.EVIDENCIA_INTERNAL_KEY ?? '',
+        },
         body: formData,
+        signal: AbortSignal.timeout(60_000),
       });
     } catch (erro) {
       this.logger.error('Erro de rede ao enviar artefatos para evidencia-api', erro);
@@ -52,7 +56,6 @@ export class HttpEvidenciaClient implements IEvidenciaClient {
         'Resposta inválida da evidencia-api: pacote selado incompleto',
       );
     }
-
     return pacote;
   }
 }

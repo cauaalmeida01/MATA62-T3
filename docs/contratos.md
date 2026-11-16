@@ -35,7 +35,7 @@ Todas, menos cadastro e login, exigem `Authorization: Bearer <token>` e só devo
 | `POST /api/internal/reservas` | creditos-api | registro-api | `{ userId, solicitacaoId, quantidade: 1 }` → `201 { reservaId }`; sem saldo → `402 CREDITOS_INSUFICIENTES`; sem carteira → `404`; mesma `solicitacaoId` de novo → `201` com a mesma `reservaId` |
 | `POST /api/internal/reservas/:id/efetivar` | creditos-api | relatorios-api | `200 { reservaId, status: "EFETIVADA" }`; se já efetivada → `200` (idempotente); se liberada → `409`; inexistente → `404` |
 | `POST /api/internal/reservas/:id/liberar` | creditos-api | captura-worker (DLQ) e reconciliação | corpo opcional `{ motivo }` → `200 { reservaId, status: "LIBERADA" }`; se já liberada → `200`; se efetivada → `409`; inexistente → `404` |
-| `POST /api/internal/evidencias` | evidencia-api | captura-worker | `multipart/form-data`: `metadados` (JSON abaixo) + `arquivos[]` → `201` com o pacote selado |
+| `POST /api/internal/evidencias` | evidencia-api | captura-worker | Cabeçalho obrigatório: `x-internal-api-key` (valor de `EVIDENCIA_INTERNAL_KEY`). `multipart/form-data`: `metadados` (JSON abaixo) + arquivos repetidos no campo `arquivos`; tipos aceitos: `TELA`, `HAR` e `HTML` → `201` com o pacote selado |
 | `POST /api/internal/registros/:solicitacaoId/conclusao` | relatorios-api | captura-worker | `{ userId, reservaId, url, titulo, inicio, fim, pacote }` → `201 { registroId }`; repetida → `200` com o mesmo `registroId` |
 
 Metadados enviados com as evidências:
