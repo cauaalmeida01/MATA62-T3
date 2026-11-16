@@ -1,13 +1,14 @@
 import { Module } from '@nestjs/common';
-import { HealthModule } from '@app/compartilhado';
+import { HealthModule, JwtAuthGuard, TOKENS_REVOGADOS } from '@app/compartilhado';
+import { PostgresTokensRevogados } from '@app/infra';
 import { ConcluirRegistro } from './aplicacao/concluir-registro';
 import { DetalharRegistro, ListarRegistros } from './aplicacao/consultar-registros';
 import { CREDITOS_CLIENT, REGISTRO_REPOSITORIO } from './dominio/portas';
-import { AutenticacaoGuard, JWT_SECRET } from './entrada/autenticacao.guard';
 import { ConclusaoController, RegistrosController } from './entrada/registros.controller';
 import { CREDITOS_URL, CreditosClientHttp } from './infra/creditos-client.http';
 import { PrismaService } from './infra/prisma.service';
 import { RegistroRepositorioPrisma } from './infra/registro-repositorio.prisma';
+import { RelatoriosDatabaseService } from './infra/relatorios-database.service';
 
 /**
  * Serviço Registros e Relatórios (comp. 15 Conclusão do Registro, 18 Consulta).
@@ -22,12 +23,17 @@ import { RegistroRepositorioPrisma } from './infra/registro-repositorio.prisma';
     ConcluirRegistro,
     ListarRegistros,
     DetalharRegistro,
-    AutenticacaoGuard,
+    JwtAuthGuard,
     PrismaService,
+    RelatoriosDatabaseService,
     { provide: REGISTRO_REPOSITORIO, useClass: RegistroRepositorioPrisma },
     { provide: CREDITOS_CLIENT, useClass: CreditosClientHttp },
     { provide: CREDITOS_URL, useFactory: () => obrigatoria('CREDITOS_URL') },
-    { provide: JWT_SECRET, useFactory: () => obrigatoria('JWT_SECRET') },
+    {
+      provide: TOKENS_REVOGADOS,
+      useFactory: (db: RelatoriosDatabaseService) => new PostgresTokensRevogados(db),
+      inject: [RelatoriosDatabaseService],
+    },
   ],
 })
 export class AppModule {}

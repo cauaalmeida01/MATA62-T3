@@ -1,9 +1,9 @@
 import { Body, Controller, Get, HttpCode, Param, ParseUUIDPipe, Post, Res, UseGuards } from '@nestjs/common';
 import { Response } from 'express';
+import { JwtAuthGuard, UsuarioAtual } from '@app/compartilhado';
 import { ConcluirRegistro } from '../aplicacao/concluir-registro';
 import { DetalharRegistro, ListarRegistros } from '../aplicacao/consultar-registros';
 import { DadosRegistro } from '../dominio/registro';
-import { AutenticacaoGuard, Usuario, UsuarioAutenticado } from './autenticacao.guard';
 import { ConclusaoDto } from './conclusao.dto';
 
 /**
@@ -13,7 +13,7 @@ import { ConclusaoDto } from './conclusao.dto';
 
 /** Rotas públicas (passam pelo Nginx): REQ12 e REQ13. */
 @Controller('registros')
-@UseGuards(AutenticacaoGuard)
+@UseGuards(JwtAuthGuard)
 export class RegistrosController {
   constructor(
     private readonly listar: ListarRegistros,
@@ -21,14 +21,14 @@ export class RegistrosController {
   ) {}
 
   @Get()
-  async listarDoUsuario(@Usuario() usuario: UsuarioAutenticado) {
-    const registros = await this.listar.executar(usuario.id);
+  async listarDoUsuario(@UsuarioAtual('id') userId: string) {
+    const registros = await this.listar.executar(userId);
     return registros.map(resumo);
   }
 
   @Get(':id')
-  async detalhe(@Param('id') id: string, @Usuario() usuario: UsuarioAutenticado) {
-    return detalhe(await this.detalhar.executar(id, usuario.id));
+  async detalhe(@Param('id') id: string, @UsuarioAtual('id') userId: string) {
+    return detalhe(await this.detalhar.executar(id, userId));
   }
 }
 
