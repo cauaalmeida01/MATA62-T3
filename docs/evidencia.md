@@ -7,18 +7,20 @@ A API tem porta Docker 3004, mas o endpoint interno deve ser chamado pelo `captu
 
 ```bash
 cp .env.example .env           # somente se ainda não existir .env
-# Se .env já existir, adicione EVIDENCIA_INTERNAL_KEY com o MESMO valor nos serviços.
+# Preencha EVIDENCIA_INTERNAL_KEY no .env com um segredo local, sem versioná-lo.
 docker compose up --build
 curl http://localhost:3004/api/health
 npm test -- --runInBand
 npm run build
 ```
 
+O Compose repassa o mesmo `EVIDENCIA_INTERNAL_KEY` do `.env` ao `captura-worker` e à `evidencia-api` por `env_file: .env`, herdado de `x-app`. Após alterar a chave, recrie os dois serviços. O cabeçalho `x-internal-api-key` é obrigatório; o client deixa o próprio `fetch` definir o `Content-Type` e o boundary do multipart.
+
 O RustFS é iniciado pelo Compose em `http://localhost:9001`; o `s3-init` cria o bucket `evidencias` com Object Lock (GOVERNANCE, 1 dia). O nome de objeto começa em `evidencias/<evidenciaId>/`. Metadados e hashes ficam em `evidencia.evidencias` e `evidencia.arquivos`. Eventos de selagem ficam em `compartilhado.trilha_auditoria`, em cadeia de hashes, na mesma transação do pacote.
 
 ## Operação
 
-Entrada: `multipart/form-data`, campo texto `metadados` JSON com `solicitacaoId`, `userId`, `url`, `inicio`, `fim`; arquivos repetidos no campo `arquivos`, PNG (`image/png`), HAR (`application/json`) ou HTML (`text/html`). Até 10 arquivos, 25 MiB por arquivo. Nome simples sem `/` ou `..`. O worker já gera `screenshot.png` e `rede.har`, e foi ajustado para enviar `x-internal-api-key`.
+Entrada: `multipart/form-data`, campo texto `metadados` JSON com `solicitacaoId`, `userId`, `url`, `inicio`, `fim`; arquivos repetidos no campo `arquivos`, tipos TELA (PNG, `image/png`), HAR (`application/json`) ou HTML (`text/html`). Até 10 arquivos, 25 MiB por arquivo. Nome simples sem `/` ou `..`. O worker já gera `screenshot.png` e `rede.har`, e foi ajustado para enviar `x-internal-api-key`.
 
 Saída HTTP 201:
 
