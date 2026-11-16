@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+/* Cores e tipos do protótipo de telas do Veridit (docs/design-divergencias.md). */
+@theme {
+  --color-fundo: #f7f8fa;
+  --color-marinho: #1f3a5f;
+  --color-marinho-escuro: #182e4b;
+  --color-laranja: #c2410c;
+  --color-laranja-claro: #fde7dc;
+  --color-texto: #111827;
+  --color-apagado: #6b7280;
+  --color-borda: #e5e7eb;
+  --color-cabecalho-tabela: #f3f4f6;
+  --color-sucesso: #15803d;
+  --color-sucesso-claro: #dcfce7;
+  --color-info: #1d4ed8;
+  --color-info-claro: #dbeafe;
+  --color-alerta: #a16207;
+  --color-alerta-claro: #fef3c7;
+  --color-erro: #b91c1c;
+  --color-erro-claro: #fee2e2;
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-hash: "JetBrains Mono", ui-monospace, monospace;
+}
+
+body {
+  @apply bg-fundo text-texto font-sans antialiased;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-laranja);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
