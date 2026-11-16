@@ -24,8 +24,8 @@ Todas, menos cadastro e login, exigem `Authorization: Bearer <token>` e só devo
 | `GET /api/creditos/saldo` | creditos-api | — | `{ disponivel, reservado }` |
 | `POST /api/solicitacoes` | registro-api | REQ08 | `{ url, titulo, modo: "TELA" }` → `202 { solicitacaoId, status: "PENDENTE" }` |
 | `GET /api/solicitacoes/:id` | registro-api | REQ08 | Status: `PENDENTE`, `PROCESSANDO`, `CONCLUIDA` ou `FALHOU` |
-| `GET /api/registros` | relatorios-api | REQ12 | Lista os registros concluídos do usuário |
-| `GET /api/registros/:id` | relatorios-api | REQ13 | Detalhes: URL, início, fim, arquivos, hashes, carimbo |
+| `GET /api/registros` | relatorios-api | REQ12 | Lista os registros concluídos do usuário, mais novos primeiro: `[{ id, url, titulo, inicio, fim, carimbo: { fonte, horario }, criadoEm }]` |
+| `GET /api/registros/:id` | relatorios-api | REQ13 | Os campos da lista + `solicitacaoId`, `evidenciaId`, `manifestoSha256`, `arquivos: [{ nome, tipo, sha256, tamanhoBytes }]`. Registro de outro usuário responde `404` |
 
 ## 3. Rotas internas (só entre serviços)
 
@@ -126,8 +126,12 @@ A validação fica na biblioteca `compartilhado` (pacote "autorização" da Figu
 | `registro` (registro-api e captura-worker) | `solicitacoes` | `id`, `user_id`, `url`, `titulo`, `modo`, `status`, `reserva_id`, `ultimo_erro`, `criada_em`, `atualizada_em` |
 | `evidencia` (evidencia-api) | `evidencias` | `id`, `solicitacao_id`, `manifesto_sha256`, `carimbo_fonte`, `carimbo_horario`, `carimbo_token`, `criada_em` |
 | `evidencia` | `arquivos` | `id`, `evidencia_id`, `nome`, `tipo`, `sha256`, `tamanho_bytes`, `chave` |
-| `relatorios` (relatorios-api) | `registros` | `id`, `solicitacao_id` (único), `user_id`, `url`, `titulo`, `inicio`, `fim`, `evidencia_id`, `manifesto_sha256`, `carimbo_fonte`, `carimbo_horario`, `criado_em` |
+| `relatorios` (relatorios-api) | `registros` | `id`, `solicitacao_id` (único), `user_id`, `reserva_id`, `url`, `titulo`, `inicio`, `fim`, `evidencia_id`, `manifesto_sha256`, `carimbo_fonte`, `carimbo_horario`, `criado_em`; somente inclusão |
+| `relatorios` | `registro_arquivos` | `id`, `registro_id`, `nome`, `tipo`, `sha256`, `tamanho_bytes`, `chave`; cópia dos arquivos do pacote selado, para o REQ13 não depender da evidencia-api |
 | `compartilhado` (biblioteca) | `tokens_revogados` | `jti` (PK), `expira_em` |
 | `compartilhado` (biblioteca) | `trilha_auditoria` | `id`, `user_id`, `acao`, `entidade_id`, `dados` (JSON), `hash_anterior`, `hash` (único), `criado_em`; somente inclusão |
 
-A ferramenta de banco (ORM e migrações) ainda precisa ser decidida pelo grupo junto com este arquivo.
+**Acesso ao banco, como está implementado:**
+
+- **contas-api, creditos-api e registro-api:** driver `pg` com a classe base `BancoPostgres` (`libs/infra`). Cada serviço cria o próprio esquema ao subir, com `CREATE ... IF NOT EXISTS` (DDL no `*-database.service.ts` de cada um).
+- **relatorios-api:** Prisma 6, com `apps/relatorios-api/prisma/schema.prisma` e migrações versionadas em `apps/relatorios-api/prisma/migrations`, aplicadas ao subir o contêiner (`infra/docker/iniciar.sh`). Usa `DATABASE_URL_RELATORIOS` (terminada em `?schema=relatorios`), para a tabela `_prisma_migrations` ficar no próprio esquema. Para consultar `compartilhado.tokens_revogados` (logout), usa o mesmo `BancoPostgres` + `PostgresTokensRevogados` dos outros serviços.

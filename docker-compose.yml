@@ -170,13 +170,14 @@ services:
 
   # Porta de entrada (no T2: Application Load Balancer). Só expõe as rotas
   # públicas; /api/internal/* e o evidencia-api ficam fora.
+  # A imagem leva o build do front em React (web/Dockerfile).
   nginx:
-    image: nginx:1.27-alpine
+    build:
+      context: ./web
     ports:
       - "8080:80"
     volumes:
       - ./infra/nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
-      - ./infra/nginx/html:/usr/share/nginx/html:ro
     depends_on:
       - contas-api
       - creditos-api

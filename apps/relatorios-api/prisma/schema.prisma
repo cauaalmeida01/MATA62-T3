@@ -1,0 +1,56 @@
+// Esquema "relatorios" do PostgreSQL compartilhado (ADR-005 do T2; docs/contratos.md, seção 6).
+// Só a relatorios-api lê e escreve aqui.
+//
+// O cliente é gerado num caminho próprio para não colidir com o Prisma dos outros serviços.
+// DATABASE_URL_RELATORIOS termina com ?schema=relatorios, assim a tabela de controle das
+// migrações (_prisma_migrations) também fica neste esquema, separada da dos outros serviços.
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../../../node_modules/.prisma/relatorios"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL_RELATORIOS")
+  schemas  = ["relatorios"]
+}
+
+model Registro {
+  id              String   @id @db.Uuid
+  solicitacaoId   String   @unique @map("solicitacao_id") @db.Uuid
+  userId          String   @map("user_id") @db.Uuid
+  reservaId       String   @map("reserva_id") @db.Uuid
+  url             String
+  titulo          String
+  inicio          DateTime @db.Timestamptz(3)
+  fim             DateTime @db.Timestamptz(3)
+  evidenciaId     String   @map("evidencia_id") @db.Uuid
+  manifestoSha256 String   @map("manifesto_sha256") @db.Char(64)
+  carimboFonte    String   @map("carimbo_fonte")
+  carimboHorario  DateTime @map("carimbo_horario") @db.Timestamptz(3)
+  criadoEm        DateTime @map("criado_em") @db.Timestamptz(3)
+
+  arquivos RegistroArquivo[]
+
+  @@index([userId, criadoEm(sort: Desc)])
+  @@map("registros")
+  @@schema("relatorios")
+}
+
+/// Cópia dos arquivos do pacote selado, para o detalhe (REQ13) não depender da evidencia-api.
+model RegistroArquivo {
+  id           String @id @default(uuid()) @db.Uuid
+  registroId   String @map("registro_id") @db.Uuid
+  nome         String
+  tipo         String
+  sha256       String @db.Char(64)
+  tamanhoBytes BigInt @map("tamanho_bytes")
+  chave        String
+
+  registro Registro @relation(fields: [registroId], references: [id], onDelete: Restrict)
+
+  @@index([registroId])
+  @@map("registro_arquivos")
+  @@schema("relatorios")
+}
