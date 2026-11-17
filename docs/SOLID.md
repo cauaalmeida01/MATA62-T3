@@ -83,6 +83,16 @@ Os dois serviços seguem as mesmas camadas do Papel B (`dominio/`, `aplicacao/`,
 
 ---
 
+## Serviço Evidência — Papel C (`evidencia-api`)
+
+- **SRP:** o `EvidenciasController` trata apenas da interface HTTP, `SelarEvidenciaUseCase` coordena a selagem, `S3ArmazenamentoAdapter` somente armazena, `Rfc3161Carimbador` obtém o carimbo e `PostgresEvidenciaRepository` isola a persistência.
+- **OCP:** adicionar uma TSA alternativa (por exemplo uma ACT ICP-Brasil, ver ADR-008), outro cliente S3 ou outra implementação de banco exige só um novo adaptador compatível com as portas de domínio, sem modificar o caso de uso.
+- **LSP:** nos testes do caso de uso, os adaptadores reais são substituídos por dublês tipados (`IEvidenciaRepository`, `IArmazenamentoEvidencia`, `ICarimbadorTempo`) que respeitam os mesmos contratos.
+- **ISP:** cada porta oferece só o que o caso de uso precisa: `carimbar`, `gravar`, `buscarPorSolicitacao` e `salvar`, sem uma interface de infraestrutura única e grande.
+- **DIP:** o caso de uso depende de interfaces e tokens `Symbol` do domínio; o `AppModule` do NestJS liga as portas aos adaptadores com `provide`/`useClass`.
+
+---
+
 ## Serviço de Registros e Relatórios + Web — Papel D (`relatorios-api` e `web`)
 
 Camadas da relatorios-api, de dentro para fora:
