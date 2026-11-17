@@ -1,5 +1,5 @@
 import { SendMessageCommand, SQSClient } from '@aws-sdk/client-sqs';
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, Optional } from '@nestjs/common';
 import {
   FalhaIntegracaoInternaError,
   IFilaCapturaPublisher,
@@ -12,7 +12,9 @@ export class SqsFilaCapturaPublisher implements IFilaCapturaPublisher {
   private readonly sqsClient: SQSClient;
   private readonly filaCapturaUrl: string;
 
-  constructor(sqsClientCustomizado?: SQSClient) {
+  // @Optional(): sem ele, o Nest tenta injetar um SQSClient que nenhum módulo provê
+  // e a registro-api nem sobe (o worker já usa o mesmo padrão nos consumidores).
+  constructor(@Optional() sqsClientCustomizado?: SQSClient) {
     this.filaCapturaUrl =
       process.env.FILA_CAPTURA_URL ?? 'http://elasticmq:9324/000000000000/captura';
 
