@@ -5,3 +5,14 @@
 | ADR 3 - Integridade das evidências | No momento da captura, cada arquivo recebe uma impressão digital e uma data e hora com validade jurídica, guardadas num histórico que não pode ser alterado | Auditabilidade: permite provar que a evidência não foi modificada e saber quem fez cada registro e quando | Cada data e hora certificada tem custo e depende de uma entidade externa. Blockchain foi descartada: nenhum requisito pede e tem menos respaldo jurídico |
 | ADR 4 - Autenticação e controle de acesso | Login obrigatório, sessões que expiram e checagem em cada serviço para que o usuário só acesse os próprios registros e créditos | Segurança: só usuários cadastrados entram, e ninguém vê ou baixa evidências de outra pessoa | O usuário precisa logar de novo com mais frequência, e a checagem de acesso tem que ser repetida em todos os serviços |
 | ADR 5 - Débito de créditos | O crédito é separado quando a captura começa e só é descontado se ela der certo. Se falhar, volta para o usuário | Confiabilidade: o usuário não paga por uma captura que não foi concluída | Mais situações para controlar (separado, descontado, devolvido), incluindo créditos que ficam separados se a captura travar no meio |
+## Status após o Trabalho III (16/11/2026)
+
+A tabela acima é do Grupo 4 e fica como está. O documento arquitetural do T2 (`docs/arquitetura/Documento_Arquitetural_T2_Grupo4.pdf`) numera as mesmas decisões de outro jeito; a coluna "No PDF" faz a correspondência. Os desvios da implementação foram acordados com o Grupo 4 em 10/11/2026 (Issue #1) e estão registrados em [`docs/adr/`](docs/adr/README.md).
+
+| Nesta tabela | No PDF | Status | Por quê |
+|---|---|---|---|
+| ADR 1 - Estilo arquitetural | ADR-005 | Aceita; complementada pela ADR-006 e pela ADR-010 | O estilo e os serviços não mudaram. A implantação local substitui ECS, ALB e RDS (ADR-006), e a ADR-010 define a comunicação entre serviços, que o T2 não definiu |
+| ADR 2 - Processamento da captura | ADR-002 | Aceita; emendada pela ADR-006 | A fila com DLQ continua; o Amazon SQS dá lugar ao ElasticMQ, com a mesma API |
+| ADR 3 - Integridade das evidências | ADR-003 | Aceita; emendada pela ADR-006 e pela ADR-008 | Hash, manifesto, carimbo RFC 3161, armazenamento imutável e trilha continuam. O S3 dá lugar ao RustFS (ADR-006), e a ACT ICP-Brasil à FreeTSA (ADR-008) |
+| ADR 4 - Autenticação e controle de acesso | ADR-001 | Aceita; emendada pela ADR-007 e pela ADR-009 | Login obrigatório, sessão que expira e checagem em cada serviço continuam. O Cognito e o KMS dão lugar a JWT próprio e chaves em variáveis de ambiente (ADR-007); o contêiner efêmero por captura, a um contexto de navegador novo por captura (ADR-009) |
+| ADR 5 - Débito de créditos | ADR-004 | Aceita, sem alteração | Implementada como decidida: reservar, efetivar ou liberar, com DLQ e reconciliação |
