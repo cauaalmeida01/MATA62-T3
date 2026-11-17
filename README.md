@@ -54,6 +54,12 @@ npm run dev:mock   # sem back nenhum: API falsa em memória, para trabalhar nas 
 
 Fora do Docker, troque nos endereços do `.env` os nomes `postgres`, `elasticmq`, `rustfs`, `mailpit` e `*-api` por `localhost` (com as portas da tabela acima).
 
+## Arquitetura
+
+![Topologia do Veridit no T3](docs/arquitetura/topologia-t3.png)
+
+Estilo baseado em serviços (ADR-005 do Grupo 4) rodando na infraestrutura local da [ADR-006](docs/adr/ADR-006-infraestrutura-local.md). A figura é gerada por `python3 docs/arquitetura/gerar-topologia.py docs/arquitetura/topologia-t3.svg`.
+
 ## Estrutura
 
 ```

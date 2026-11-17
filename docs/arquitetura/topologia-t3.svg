@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="790" viewBox="0 0 1600 790">
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#111"/></marker><marker id="ah-s" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#111"/></marker><marker id="ahg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#8a8a8a"/></marker></defs>
+<rect width="1600" height="790" fill="#fff"/>
+<rect x="1" y="1" width="1598" height="732" fill="none" stroke="#9a9a9a" stroke-width="1.5"/>
+<polygon points="440,26 450,16 850,16 840,26" fill="#B5D6EE" stroke="#111" stroke-width="2.4" stroke-linejoin="round"/>
+<polygon points="840,26 850,16 850,66 840,76" fill="#B5D6EE" stroke="#111" stroke-width="2.4" stroke-linejoin="round"/>
+<rect x="440" y="26" width="400" height="50" fill="#B5D6EE" stroke="#111" stroke-width="2.4" stroke-linejoin="round"/>
+<text x="640" y="52" font-family="'TeX Gyre Heros Cn', 'DejaVu Sans Condensed', sans-serif" font-size="22" font-weight="bold" font-style="normal" fill="#111" text-anchor="middle" dominant-baseline="middle">Navegador · interface web em React</text>
+<line x1="640" y1="76" x2="640" y2="104" stroke="#111" stroke-width="2.4" marker-end="url(#ah)"/>
+<polygon points="20,110 30,100 1270,100 1260,110" fill="#6FB0DF" stroke="#111" stroke-width="2.4" stroke-linejoin="round"/>
+<polygon points="1260,110 1270,100 1270,156 1260,166" fill="#6FB0DF" stroke="#111" stroke-width="2.4" stroke-linejoin="round"/>
+<rect x="20" y="110" width="1240" height="56" fill="#6FB0DF" stroke="#111" stroke-width="2.4" stroke-linejoin="round"/>
+<text x="640" y="130" font-family="'TeX Gyre Heros Cn', 'DejaVu Sans Condensed', sans-serif" font-size="22" font-weight="bold" font-style="normal" fill="#111" text-anchor="middle" dominant-baseline="middle">Nginx :8080 · proxy reverso</text>
+<text x="640" y="152" font-family="'TeX Gyre Heros Cn', 'DejaVu Sans Condensed', sans-serif" font-size="16" font-weight="normal" font-style="normal" fill="#111" text-anchor="middle" dominant-baseline="middle">serve o front-end e só as rotas públicas; /api/internal responde 404</text>
+<polygon points="20,212 30,202 240,202 230,212" fill="#B5D6EE" stroke="#111" stroke-width="2.4" stroke-linejoin="round"/>
+<polygon points="230,212 240,202 240,430 230,440" fill="#B5D6EE" stroke="#111" stroke-width="2.4" stroke-linejoin="round"/>
+<rect x="20" y="212" width="210" height="228" fill="#B5D6EE" stroke="#111" stroke-width="2.4" stroke-linejoin="round"/>
+<text x="125.0" y="238" font-family="'TeX Gyre Heros Cn', 'DejaVu Sans Condensed', sans-serif" font-size="22" font-weight="bold" font-style="normal" fill="#111" text-anchor="middle" dominant-baseline="middle">Contas</text>
+<text x="125.0" y="260" font-family="'TeX Gyre Heros Cn', 'DejaVu Sans Condensed', sans-serif" font-size="15" font-weight="normal" font-style="normal" fill="#1d3b55" text-anchor="middle" dominant-baseline="middle">contas-api :3001</text>
+<rect x="35.0" y="278" width="180" height="34" rx="9" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="125.0" y="296.0" font-family="'TeX Gyre Heros Cn', 'DejaVu Sans Condensed', sans-serif" font-size="18" font-weight="normal" font-style="normal" fill="#111" text-anchor="middle" dominant-baseline="middle">Cadastro</text>
+<rect x="35.0" y="326" width="180" height="34" rx="9" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="125.0" y="344.0" font-family="'TeX Gyre Heros Cn', 'DejaVu Sans Condensed', sans-serif" font-size="18" font-weight="normal" font-style="normal" fill="#111" text-anchor="middle" dominant-baseline="middle">Login e logout (JWT)</text>
+<rect x="35.0" y="374" width="180" height="34" rx="9" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="125.0" y="392.0" font-family="'TeX Gyre Heros Cn', 'DejaVu Sans Condensed', sans-serif" font-size="18" font-weight="normal" font-style="normal" fill="#111" text-anchor="middle" dominant-baseline="middle">Cifragem do CPF</text>
+<polygon points="260,212 270,202 480,202 470,212" fill="#B5D6EE" stroke="#111" stroke-width="2.4" stroke-linejoin="round"/>
+<polygon points="470,212 480,202 480,430 470,440" fill="#B5D6EE" stroke="#111" stroke-width="2.4" stroke-linejoin="round"/>
+<rect x="260" y="212" width="210" height="228" fill="#B5D6EE" stroke="#111" stroke-width="2.4" stroke-linejoin="round"/>
+<text x="365.0" y="238" font-family="'TeX Gyre Heros Cn', 'DejaVu Sans Condensed', sans-serif" font-size="20" font-weight="bold" font-style="normal" fill="#111" text-anchor="middle" dominant-baseline="middle">Créditos e Pagamentos</text>
+<text x="365.0" y="260" font-family="'TeX Gyre Heros Cn', 'DejaVu Sans Condensed', sans-serif" font-size="15" font-weight="normal" font-style="normal" fill="#1d3b55" text-anchor="middle" dominant-baseline="middle">creditos-api :3002</text>
+<rect x="275.0" y="278" width="180" height="34" rx="9" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="365.0" y="296.0" font-family="'TeX Gyre Heros Cn', 'DejaVu Sans Condensed', sans-serif" font-size="18" font-weight="normal" font-style="normal" fill="#111" text-anchor="middle" dominant-baseline="middle">Carteira</text>
+<rect x="275.0" y="326" width="180" height="34" rx="9" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="365.0" y="344.0" font-family="'TeX Gyre Heros Cn', 'DejaVu Sans Condensed', sans-serif" font-size="18" font-weight="normal" font-style="normal" fill="#111" text-anchor="middle" dominant-baseline="middle">Reserva de crédito</text>
+<rect x="275.0" y="374" width="180" height="34" rx="9" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="365.0" y="392.0" font-family="'TeX Gyre Heros Cn', 'DejaVu Sans Condensed', sans-serif" font-size="18" font-weight="normal" font-style="normal" fill="#111" text-anchor="middle" dominant-baseline="middle">Efetivar e liberar</text>
+<polygon points="1050,212 1060,202 1270,202 1260,212" fill="#B5D6EE" stroke="#111" stroke-width="2.4" stroke-linejoin="round"/>
+<polygon points="1260,212 1270,202 1270,430 1260,440" fill="#B5D6EE" stroke="#111" stroke-width="2.4" stroke-linejoin="round"/>
+<rect x="1050" y="212" width="210" height="228" fill="#B5D6EE" stroke="#111" stroke-width="2.4" stroke-linejoin="round"/>
+<text x="1155.0" y="238" font-family="'TeX Gyre Heros Cn', 'DejaVu Sans Condensed', sans-serif" font-size="20" font-weight="bold" font-style="normal" fill="#111" text-anchor="middle" dominant-baseline="middle">Registros e Relatórios</text>
+<text x="1155.0" y="260" font-family="'TeX Gyre Heros Cn', 'DejaVu Sans Condensed', sans-serif" font-size="15" font-weight="normal" font-style="normal" fill="#1d3b55" text-anchor="middle" dominant-baseline="middle">relatorios-api :3005</text>
+<rect x="1065.0" y="278" width="180" height="34" rx="9" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="1155.0" y="296.0" font-family="'TeX Gyre Heros Cn', 'DejaVu Sans Condensed', sans-serif" font-size="18" font-weight="normal" font-style="normal" fill="#111" text-anchor="middle" dominant-baseline="middle">Conclusão</text>
+<rect x="1065.0" y="326" width="180" height="34" rx="9" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="1155.0" y="344.0" font-family="'TeX Gyre Heros Cn', 'DejaVu Sans Condensed', sans-serif" font-size="18" font-weight="normal" font-style="normal" fill="#111" text-anchor="middle" dominant-baseline="middle">Lista de registros</text>
+<rect x="1065.0" y="374" width="180" height="34" rx="9" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="1155.0" y="392.0" font-family="'TeX Gyre Heros Cn', 'DejaVu Sans Condensed', sans-serif" font-size="18" font-weight="normal" font-style="normal" fill="#111" text-anchor="middle" dominant-baseline="middle">Detalhe do registro</text>
+<polygon points="1290,212 1300,202 1560,202 1550,212" fill="#B5D6EE" stroke="#111" stroke-width="2.4" stroke-linejoin="round"/>
+<polygon points="1550,212 1560,202 1560,430 1550,440" fill="#B5D6EE" stroke="#111" stroke-width="2.4" stroke-linejoin="round"/>
+<rect x="1290" y="212" width="260" height="228" fill="#B5D6EE" stroke="#111" stroke-width="2.4" stroke-linejoin="round"/>
+<text x="1420.0" y="238" font-family="'TeX Gyre Heros Cn', 'DejaVu Sans Condensed', sans-serif" font-size="22" font-weight="bold" font-style="normal" fill="#111" text-anchor="middle" dominant-baseline="middle">Evidência</text>
+<text x="1420.0" y="260" font-family="'TeX Gyre Heros Cn', 'DejaVu Sans Condensed', sans-serif" font-size="15" font-weight="normal" font-style="normal" fill="#1d3b55" text-anchor="middle" dominant-baseline="middle">evidencia-api :3004</text>
+<rect x="1305.0" y="278" width="230" height="34" rx="9" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="1420.0" y="296.0" font-family="'TeX Gyre Heros Cn', 'DejaVu Sans Condensed', sans-serif" font-size="18" font-weight="normal" font-style="normal" fill="#111" text-anchor="middle" dominant-baseline="middle">Hash SHA-256</text>
+<rect x="1305.0" y="326" width="230" height="34" rx="9" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="1420.0" y="344.0" font-family="'TeX Gyre Heros Cn', 'DejaVu Sans Condensed', sans-serif" font-size="18" font-weight="normal" font-style="normal" fill="#111" text-anchor="middle" dominant-baseline="middle">Carimbo do tempo</text>
+<rect x="1305.0" y="374" width="230" height="34" rx="9" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="1420.0" y="392.0" font-family="'TeX Gyre Heros Cn', 'DejaVu Sans Condensed', sans-serif" font-size="18" font-weight="normal" font-style="normal" fill="#111" text-anchor="middle" dominant-baseline="middle">Trilha de auditoria</text>
+<polygon points="500,212 510,202 1030,202 1020,212" fill="#B5D6EE" stroke="#111" stroke-width="2.4" stroke-linejoin="round"/>
+<polygon points="1020,212 1030,202 1030,430 1020,440" fill="#B5D6EE" stroke="#111" stroke-width="2.4" stroke-linejoin="round"/>
+<rect x="500" y="212" width="520" height="228" fill="#B5D6EE" stroke="#111" stroke-width="2.4" stroke-linejoin="round"/>
+<text x="760.0" y="238" font-family="'TeX Gyre Heros Cn', 'DejaVu Sans Condensed', sans-serif" font-size="22" font-weight="bold" font-style="normal" fill="#111" text-anchor="middle" dominant-baseline="middle">Registro e Captura</text>
+<text x="760.0" y="260" font-family="'TeX Gyre Heros Cn', 'DejaVu Sans Condensed', sans-serif" font-size="15" font-weight="normal" font-style="normal" fill="#1d3b55" text-anchor="middle" dominant-baseline="middle">um serviço, duas unidades de implantação</text>
+<rect x="515" y="274" width="175" height="158" fill="#6FB0DF" stroke="#111" stroke-width="2.4"/>
+<text x="602.5" y="292" font-family="'TeX Gyre Heros Cn', 'DejaVu Sans Condensed', sans-serif" font-size="17" font-weight="bold" font-style="normal" fill="#111" text-anchor="middle" dominant-baseline="middle">registro-api :3003</text>
+<rect x="525.0" y="310" width="155" height="32" rx="9" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="602.5" y="327.0" font-family="'TeX Gyre Heros Cn', 'DejaVu Sans Condensed', sans-serif" font-size="18" font-weight="normal" font-style="normal" fill="#111" text-anchor="middle" dominant-baseline="middle">Pedido de registro</text>
+<rect x="525.0" y="350" width="155" height="32" rx="9" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="602.5" y="367.0" font-family="'TeX Gyre Heros Cn', 'DejaVu Sans Condensed', sans-serif" font-size="18" font-weight="normal" font-style="normal" fill="#111" text-anchor="middle" dominant-baseline="middle">Validação de URL</text>
+<rect x="525.0" y="390" width="155" height="32" rx="9" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="602.5" y="407.0" font-family="'TeX Gyre Heros Cn', 'DejaVu Sans Condensed', sans-serif" font-size="18" font-weight="normal" font-style="normal" fill="#111" text-anchor="middle" dominant-baseline="middle">Publica na fila</text>
+<rect x="830" y="274" width="175" height="158" fill="#6FB0DF" stroke="#111" stroke-width="2.4"/>
+<text x="917.5" y="292" font-family="'TeX Gyre Heros Cn', 'DejaVu Sans Condensed', sans-serif" font-size="17" font-weight="bold" font-style="normal" fill="#111" text-anchor="middle" dominant-baseline="middle">captura-worker</text>
+<rect x="840.0" y="310" width="155" height="32" rx="9" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="917.5" y="327.0" font-family="'TeX Gyre Heros Cn', 'DejaVu Sans Condensed', sans-serif" font-size="18" font-weight="normal" font-style="normal" fill="#111" text-anchor="middle" dominant-baseline="middle">Captura (Playwright)</text>
+<rect x="840.0" y="350" width="155" height="32" rx="9" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="917.5" y="367.0" font-family="'TeX Gyre Heros Cn', 'DejaVu Sans Condensed', sans-serif" font-size="18" font-weight="normal" font-style="normal" fill="#111" text-anchor="middle" dominant-baseline="middle">Bloqueio de SSRF</text>
+<rect x="840.0" y="390" width="155" height="32" rx="9" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="917.5" y="407.0" font-family="'TeX Gyre Heros Cn', 'DejaVu Sans Condensed', sans-serif" font-size="18" font-weight="normal" font-style="normal" fill="#111" text-anchor="middle" dominant-baseline="middle">Reconciliação</text>
+<path d="M727.0,352 L806,352 L806,378 L727.0,378 A6.5,13.0 0 0 1 727.0,352 Z" fill="#1271BA" stroke="#0B3F6E" stroke-width="2.2"/>
+<ellipse cx="806" cy="365.0" rx="5.909090909090908" ry="13.0" fill="#fff" stroke="#0B3F6E" stroke-width="2.2"/>
+<line x1="718" y1="340" x2="800" y2="340" stroke="#8a8a8a" stroke-width="3" marker-end="url(#ahg)"/>
+<text x="760" y="318" font-family="'TeX Gyre Heros Cn', 'DejaVu Sans Condensed', sans-serif" font-size="16" font-weight="bold" font-style="normal" fill="#111" text-anchor="middle" dominant-baseline="middle">fila captura</text>
+<text x="760" y="402" font-family="'TeX Gyre Heros Cn', 'DejaVu Sans Condensed', sans-serif" font-size="14" font-weight="normal" font-style="normal" fill="#111" text-anchor="middle" dominant-baseline="middle">SQS (ElasticMQ)</text>
+<text x="760" y="420" font-family="'TeX Gyre Heros Cn', 'DejaVu Sans Condensed', sans-serif" font-size="14" font-weight="normal" font-style="normal" fill="#111" text-anchor="middle" dominant-baseline="middle">DLQ após 3 falhas</text>
+<line x1="125" y1="166" x2="125" y2="210" stroke="#111" stroke-width="2.4" marker-end="url(#ah)"/>
+<line x1="365" y1="166" x2="365" y2="210" stroke="#111" stroke-width="2.4" marker-end="url(#ah)"/>
+<line x1="602" y1="166" x2="602" y2="272" stroke="#111" stroke-width="2.4" marker-end="url(#ah)"/>
+<line x1="1155" y1="166" x2="1155" y2="210" stroke="#111" stroke-width="2.4" marker-end="url(#ah)"/>
+<path d="M1292,40 L1292,148 A64.0,13 0 0 0 1420,148 L1420,40 Z" fill="#1271BA" stroke="#0B4F86" stroke-width="2.4"/>
+<ellipse cx="1356.0" cy="40" rx="64.0" ry="13" fill="#4E9BD5" stroke="#0B4F86" stroke-width="2.4"/>
+<text x="1356" y="88" font-family="'TeX Gyre Heros Cn', 'DejaVu Sans Condensed', sans-serif" font-size="20" font-weight="bold" font-style="normal" fill="#fff" text-anchor="middle" dominant-baseline="middle">RustFS</text>
+<text x="1356" y="110" font-family="'TeX Gyre Heros Cn', 'DejaVu Sans Condensed', sans-serif" font-size="14" font-weight="normal" font-style="normal" fill="#fff" text-anchor="middle" dominant-baseline="middle">S3 · Object Lock</text>
+<text x="1356" y="128" font-family="'TeX Gyre Heros Cn', 'DejaVu Sans Condensed', sans-serif" font-size="13" font-weight="normal" font-style="normal" fill="#d8ebf8" text-anchor="middle" dominant-baseline="middle">(ADR-006)</text>
+<polygon points="1442,52 1452,42 1572,42 1562,52" fill="#fff" stroke="#111" stroke-width="2.4" stroke-linejoin="round" stroke-dasharray="7 5"/>
+<polygon points="1562,52 1572,42 1572,138 1562,148" fill="#fff" stroke="#111" stroke-width="2.4" stroke-linejoin="round" stroke-dasharray="7 5"/>
+<rect x="1442" y="52" width="120" height="96" fill="#fff" stroke="#111" stroke-width="2.4" stroke-linejoin="round" stroke-dasharray="7 5"/>
+<text x="1502" y="82" font-family="'TeX Gyre Heros Cn', 'DejaVu Sans Condensed', sans-serif" font-size="20" font-weight="bold" font-style="normal" fill="#111" text-anchor="middle" dominant-baseline="middle">FreeTSA</text>
+<text x="1502" y="104" font-family="'TeX Gyre Heros Cn', 'DejaVu Sans Condensed', sans-serif" font-size="14" font-weight="normal" font-style="normal" fill="#111" text-anchor="middle" dominant-baseline="middle">carimbo RFC 3161</text>
+<text x="1502" y="124" font-family="'TeX Gyre Heros Cn', 'DejaVu Sans Condensed', sans-serif" font-size="13" font-weight="normal" font-style="normal" fill="#444" text-anchor="middle" dominant-baseline="middle">externo (ADR-008)</text>
+<line x1="1356" y1="200" x2="1356" y2="172" stroke="#111" stroke-width="2.4" marker-end="url(#ah)"/>
+<line x1="1500" y1="200" x2="1500" y2="150" stroke="#111" stroke-width="2.4" marker-end="url(#ah)"/>
+<line x1="20" y1="478" x2="1562" y2="478" stroke="#111" stroke-width="2.4" stroke-dasharray="2 6" stroke-linecap="round"/>
+<line x1="55" y1="442" x2="55" y2="475" stroke="#111" stroke-width="2.4" stroke-dasharray="2 6" stroke-linecap="round" marker-start="url(#ah-s)" marker-end="url(#ah)"/>
+<line x1="295" y1="442" x2="295" y2="475" stroke="#111" stroke-width="2.4" stroke-dasharray="2 6" stroke-linecap="round" marker-start="url(#ah-s)" marker-end="url(#ah)"/>
+<line x1="560" y1="442" x2="560" y2="475" stroke="#111" stroke-width="2.4" stroke-dasharray="2 6" stroke-linecap="round" marker-start="url(#ah-s)" marker-end="url(#ah)"/>
+<line x1="875" y1="442" x2="875" y2="475" stroke="#111" stroke-width="2.4" stroke-dasharray="2 6" stroke-linecap="round" marker-start="url(#ah-s)" marker-end="url(#ah)"/>
+<line x1="1085" y1="442" x2="1085" y2="475" stroke="#111" stroke-width="2.4" stroke-dasharray="2 6" stroke-linecap="round" marker-start="url(#ah-s)" marker-end="url(#ah)"/>
+<line x1="1325" y1="442" x2="1325" y2="475" stroke="#111" stroke-width="2.4" stroke-dasharray="2 6" stroke-linecap="round" marker-start="url(#ah-s)" marker-end="url(#ah)"/>
+<rect x="618" y="465" width="246" height="26" fill="#fff"/>
+<text x="741" y="479" font-family="'TeX Gyre Heros Cn', 'DejaVu Sans Condensed', sans-serif" font-size="16" font-weight="normal" font-style="italic" fill="#111" text-anchor="middle" dominant-baseline="middle">HTTP interno · /api/internal (ADR-010)</text>
+<path d="M20,540 L20,672 A771.0,17 0 0 0 1562,672 L1562,540 Z" fill="#1271BA" stroke="#0B4F86" stroke-width="2.4"/>
+<ellipse cx="791.0" cy="540" rx="771.0" ry="17" fill="#4E9BD5" stroke="#0B4F86" stroke-width="2.4"/>
+<text x="132.5" y="584" font-family="'TeX Gyre Heros Cn', 'DejaVu Sans Condensed', sans-serif" font-size="20" font-weight="bold" font-style="normal" fill="#fff" text-anchor="middle" dominant-baseline="middle">contas</text>
+<text x="365.0" y="584" font-family="'TeX Gyre Heros Cn', 'DejaVu Sans Condensed', sans-serif" font-size="20" font-weight="bold" font-style="normal" fill="#fff" text-anchor="middle" dominant-baseline="middle">creditos</text>
+<line x1="245" y1="566" x2="245" y2="602" stroke="#fff" stroke-width="2" stroke-dasharray="4 4"/>
+<text x="760.0" y="584" font-family="'TeX Gyre Heros Cn', 'DejaVu Sans Condensed', sans-serif" font-size="20" font-weight="bold" font-style="normal" fill="#fff" text-anchor="middle" dominant-baseline="middle">registro</text>
+<line x1="485" y1="566" x2="485" y2="602" stroke="#fff" stroke-width="2" stroke-dasharray="4 4"/>
+<text x="1155.0" y="584" font-family="'TeX Gyre Heros Cn', 'DejaVu Sans Condensed', sans-serif" font-size="20" font-weight="bold" font-style="normal" fill="#fff" text-anchor="middle" dominant-baseline="middle">relatorios</text>
+<line x1="1035" y1="566" x2="1035" y2="602" stroke="#fff" stroke-width="2" stroke-dasharray="4 4"/>
+<text x="1418.5" y="584" font-family="'TeX Gyre Heros Cn', 'DejaVu Sans Condensed', sans-serif" font-size="20" font-weight="bold" font-style="normal" fill="#fff" text-anchor="middle" dominant-baseline="middle">evidencia</text>
+<line x1="1275" y1="566" x2="1275" y2="602" stroke="#fff" stroke-width="2" stroke-dasharray="4 4"/>
+<text x="791.0" y="628" font-family="'TeX Gyre Heros Cn', 'DejaVu Sans Condensed', sans-serif" font-size="22" font-weight="bold" font-style="normal" fill="#fff" text-anchor="middle" dominant-baseline="middle">PostgreSQL 16 · uma instância, um esquema por serviço</text>
+<text x="791.0" y="652" font-family="'TeX Gyre Heros Cn', 'DejaVu Sans Condensed', sans-serif" font-size="16" font-weight="normal" font-style="normal" fill="#d8ebf8" text-anchor="middle" dominant-baseline="middle">+ esquema compartilhado: tokens revogados e trilha de auditoria</text>
+<line x1="150" y1="442" x2="150" y2="521" stroke="#111" stroke-width="2.4" marker-end="url(#ah)"/>
+<line x1="390" y1="442" x2="390" y2="521" stroke="#111" stroke-width="2.4" marker-end="url(#ah)"/>
+<line x1="960" y1="442" x2="960" y2="521" stroke="#111" stroke-width="2.4" marker-end="url(#ah)"/>
+<line x1="1180" y1="442" x2="1180" y2="521" stroke="#111" stroke-width="2.4" marker-end="url(#ah)"/>
+<line x1="1440" y1="442" x2="1440" y2="521" stroke="#111" stroke-width="2.4" marker-end="url(#ah)"/>
+<line x1="30" y1="708" x2="80" y2="708" stroke="#111" stroke-width="2.4" marker-end="url(#ah)"/>
+<text x="90" y="709" font-family="'TeX Gyre Heros Cn', 'DejaVu Sans Condensed', sans-serif" font-size="15" font-weight="normal" font-style="normal" fill="#111" text-anchor="start" dominant-baseline="middle">HTTP público ou acesso ao banco</text>
+<line x1="330" y1="708" x2="380" y2="708" stroke="#111" stroke-width="2.4" stroke-dasharray="2 6" stroke-linecap="round"/>
+<text x="390" y="709" font-family="'TeX Gyre Heros Cn', 'DejaVu Sans Condensed', sans-serif" font-size="15" font-weight="normal" font-style="normal" fill="#111" text-anchor="start" dominant-baseline="middle">HTTP interno, só na rede do Docker</text>
+<rect x="650" y="699" width="44" height="18" fill="#fff" stroke="#111" stroke-width="2" stroke-dasharray="6 4"/>
+<text x="704" y="709" font-family="'TeX Gyre Heros Cn', 'DejaVu Sans Condensed', sans-serif" font-size="15" font-weight="normal" font-style="normal" fill="#111" text-anchor="start" dominant-baseline="middle">serviço externo</text>
+<rect x="830" y="698" width="44" height="20" rx="6" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="884" y="709" font-family="'TeX Gyre Heros Cn', 'DejaVu Sans Condensed', sans-serif" font-size="15" font-weight="normal" font-style="normal" fill="#111" text-anchor="start" dominant-baseline="middle">componente</text>
+<text x="1562" y="709" font-family="'TeX Gyre Heros Cn', 'DejaVu Sans Condensed', sans-serif" font-size="15" font-weight="normal" font-style="italic" fill="#444" text-anchor="end" dominant-baseline="middle">Notificações, o 6º serviço do Grupo 4, ficou fora deste sprint</text>
+<text x="2" y="762" font-family="'TeX Gyre Pagella', 'Lora', serif" font-size="22" font-weight="normal" font-style="italic" fill="#111" text-anchor="start" dominant-baseline="middle">Figura 1. Topologia do Veridit no Trabalho III: estilo baseado em serviços (ADR-005) sobre infraestrutura local (ADR-006)</text>
+</svg>
